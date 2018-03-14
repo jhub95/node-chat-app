@@ -13,12 +13,21 @@ const port = process.env.PORT || 3000;
 app.use(express.static(publicPath));
 
 io.on('connection',(socket)=>{
-  console.log("new user connected to app");
   socket.on('disconnect',()=>{
-    console.log('disconnected from client')
+    // console.log('disconnected from client');
   });
-});
 
+  socket.emit('newMessage',{
+    from: "johnny walker",
+    text: "what's up dude",
+    createdAt: new Date().getTime()
+  });
+
+  socket.on('createMessage',(newMessage)=>{
+    console.log('New message arrived: ', newMessage)
+  });
+
+});
 
 
 server.listen(port,()=>{
