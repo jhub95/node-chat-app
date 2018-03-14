@@ -24,7 +24,7 @@ io.on('connection',(socket)=>{
   socket.on('createMessage',(newMessage,callback)=>{
     console.log('New message arrived: ', newMessage);
     io.emit('newMessage',generateMessage(newMessage.from,newMessage.text));
-    callback('This is a message acknowledgement');
+    callback();
 
   });
 
