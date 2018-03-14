@@ -4,6 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 const {generateMessage} = require('./utils/message');
+const {generateLocationMessage} = require('./utils/geolocation')
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -24,14 +25,14 @@ io.on('connection',(socket)=>{
     console.log('New message arrived: ', newMessage);
     io.emit('newMessage',generateMessage(newMessage.from,newMessage.text));
     callback('This is a message acknowledgement');
-    // socket.broadcast.emit('newMessage',{
-    //   from: newMessage.from,
-    //   text: newMessage.text,
-    //   createdAt: new Date().getTime()
-    // });
+
   });
 
-});
+  socket.on('createLocationMessage',(coords)=>{
+    io.emit('newLocationMessage', generateLocationMessage('system',coords.latitude, coords.longitude))
+  });
+
+}); // end of io.on connection
 
 
 server.listen(port,()=>{
