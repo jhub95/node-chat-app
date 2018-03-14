@@ -6,9 +6,19 @@
 <body>
 <p>
 Welcome to the chat app.
+<form id="message-form">
+  <input name="message" type='text' placeholder="type a message here" class="form-control" />
+  <button type='submit'>send</button>
+</form>
+<div>
+  <ol id="messageList">
+
+  </ol>
+</div>
 </p>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src="/js/libs/jquery-3.3.1.min.js"></script>
 <script src="/js/index.js"></script>
 </body>
 </html>

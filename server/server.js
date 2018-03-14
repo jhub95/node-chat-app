@@ -20,10 +20,10 @@ io.on('connection',(socket)=>{
   socket.emit('newMessage',generateMessage("admin","Welcome to the Chatter."));
   socket.broadcast.emit('newMessage',generateMessage("Admin","A new user has joined the Chatter."));
 
-  socket.on('createMessage',(newMessage)=>{
+  socket.on('createMessage',(newMessage,callback)=>{
     console.log('New message arrived: ', newMessage);
     io.emit('newMessage',generateMessage(newMessage.from,newMessage.text));
-
+    callback('This is a message acknowledgement');
     // socket.broadcast.emit('newMessage',{
     //   from: newMessage.from,
     //   text: newMessage.text,
