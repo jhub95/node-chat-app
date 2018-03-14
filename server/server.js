@@ -17,14 +17,14 @@ io.on('connection',(socket)=>{
     // console.log('disconnected from client');
   });
 
-  socket.emit('newMessage',{
-    from: "johnny walker",
-    text: "what's up dude",
-    createdAt: new Date().getTime()
-  });
 
   socket.on('createMessage',(newMessage)=>{
-    console.log('New message arrived: ', newMessage)
+    console.log('New message arrived: ', newMessage);
+    io.emit('newMessage',{
+      from: newMessage.from,
+      text: newMessage.text,
+      createdAt: new Date().getTime()
+    });
   });
 
 });
