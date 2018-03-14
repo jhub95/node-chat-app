@@ -22,7 +22,6 @@ io.on('connection',(socket)=>{
   socket.broadcast.emit('newMessage',generateMessage("Admin","A new user has joined the Chatter."));
 
   socket.on('createMessage',(newMessage,callback)=>{
-    console.log('New message arrived: ', newMessage);
     io.emit('newMessage',generateMessage(newMessage.from,newMessage.text));
     callback();
 
